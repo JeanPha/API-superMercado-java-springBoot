@@ -1,4 +1,4 @@
-package com.Jean.Supermercado.models;
+package com.Jean.Supermercado.persistence.entities;
 
 
 import jakarta.persistence.*;
@@ -20,20 +20,21 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_cliente;
 
-    @Column(name = "apellido_nombre", nullable = false)
+    @Column(name = "apellido_nombre",  nullable = false)
     private String apellidoNombre;
 
     @Column(nullable = false)
     private String dni;
 
-    @Column(name = "fecha_nacimiento", nullable = false)
+    @Column(name = "fecha_nacimiento")
+    @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
 
-    @Column(name = "correo_electronico", nullable = false)
+    @Column(name = "correo_electronico")
     private String correoElectronico;
 
-    @Column(nullable = false)
-    private String contrasena;
+//    @Column(nullable = false)
+//    private String contrasena;
 
 
     }

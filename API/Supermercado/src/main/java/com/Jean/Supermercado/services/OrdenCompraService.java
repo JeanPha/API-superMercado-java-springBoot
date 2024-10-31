@@ -1,6 +1,6 @@
 package com.Jean.Supermercado.services;
 
-import com.Jean.Supermercado.models.OrdenCompra;
+import com.Jean.Supermercado.persistence.entities.OrdenCompra;
 import com.Jean.Supermercado.repositories.OrdenCompraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,8 @@
 package com.Jean.Supermercado.services;
 
-import com.Jean.Supermercado.models.DetalleCompra;
-import com.Jean.Supermercado.models.Producto;
-import com.Jean.Supermercado.models.OrdenCompra;
+import com.Jean.Supermercado.persistence.entities.DetalleCompra;
+import com.Jean.Supermercado.persistence.entities.Producto;
+import com.Jean.Supermercado.persistence.entities.OrdenCompra;
 import com.Jean.Supermercado.repositories.DetalleCompraRepository;
 import com.Jean.Supermercado.repositories.ProductoRepository;
 import com.Jean.Supermercado.repositories.OrdenCompraRepository;

@@ -1,6 +1,6 @@
 package com.Jean.Supermercado.controllers;
 
-import com.Jean.Supermercado.models.DetalleCompra;
+import com.Jean.Supermercado.persistence.entities.DetalleCompra;
 import com.Jean.Supermercado.repositories.DetalleCompraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
