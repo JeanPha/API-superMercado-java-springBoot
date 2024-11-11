@@ -34,9 +34,7 @@ public class UsuarioService {
         String roles = usuario.getROLL();
         // Convertir los roles en una lista de autoridades (roles) para el JWT
         List<String> roleList = List.of(roles.split(","));
-        // List<SimpleGrantedAuthority> authorities = Arrays.stream(usuario.getROLL().split(","))
-        //         .map(role -> new SimpleGrantedAuthority(role))
-        // .collect(Collectors.toList());
+
 
         // Generar el JWT
         String token = Jwts.builder()

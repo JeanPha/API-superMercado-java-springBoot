@@ -38,11 +38,7 @@ public class SupermercadoApplication {
 					.authorizeRequests(authz -> authz
 							.requestMatchers(HttpMethod.POST, "/api/user").permitAll()  // Permitir acceso a /api/user sin autenticación
 							.requestMatchers(HttpMethod.POST, "/api/login").permitAll() // Permitir acceso a /api/login sin autenticación
-							.requestMatchers("/api/usuario/hola").hasAuthority("ROLE_USER")// Solo los usuarios con el rol ROLL_USER pueden acceder
-							.requestMatchers("/api/usuario/tu").hasAuthority("ROLE_ADMIN")
-							//.requestMatchers("/usu/**").hasAnyRole("USER", "ADMIN")  // Los roles USER y ADMIN pueden acceder a /usu/**
-							.requestMatchers("/api/protegida").authenticated()  // Requiere autenticación
-							.requestMatchers("/api/token-requerido").authenticated()  // Requiere autenticación
+							.requestMatchers("/api/detalles-compra/**").permitAll() // Permitir acceso sin autenticación a esta ruta
 							.anyRequest().authenticated()  // Todas las demás rutas requieren autenticación
 					)
 					//.httpBasic(withDefaults())  // Habilita autenticación básica

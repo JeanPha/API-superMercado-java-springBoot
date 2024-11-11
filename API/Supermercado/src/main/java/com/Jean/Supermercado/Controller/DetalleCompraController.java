@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController // Encargado de resolver las peticiones
 @RequestMapping("/api/detalles-compra") // Mappear la ruta
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class DetalleCompraController {
 
     @Autowired // Generar automáticamente el objeto del Repository

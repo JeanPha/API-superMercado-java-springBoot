@@ -11,15 +11,42 @@
 			"name": "Api Clientes",
 			"item": [
 				{
+					"name": "Por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SimpleToken 3438a74c821a8d3fd0505a24ef4f19279abeb0f48cd367db41599e8581b3e45d",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{dominio}}/api/clientes/1",
+							"host": [
+								"{{dominio}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"1"
+							]
+						},
+						"description": "This endpoint retrieves the details of a specific client with the ID 6. The response for this request follows a JSON schema as shown below:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id_cliente\": {\n      \"type\": \"integer\"\n    },\n    \"apellidoNombre\": {\n      \"type\": \"string\"\n    },\n    \"dni\": {\n      \"type\": \"string\"\n    },\n    \"fechaNacimiento\": {\n      \"type\": \"string\"\n    },\n    \"correoElectronico\": {\n      \"type\": \"string\"\n    },\n    \"contrasena\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
 					"name": "clientes",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -27,8 +54,23 @@
 						}
 					],
 					"request": {
-						"method": "GET",
-						"header": [],
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SimpleToken 3438a74c821a8d3fd0505a24ef4f19279abeb0f48cd367db41599e8581b3e45d",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"apellidoNombre\": \"{{$randomFullName}}\",\n    \"dni\": \"12345678\",\n    \"fechaNacimiento\": \"1985-04-15T00:00:00\",\n    \"correoElectronico\": \"{{$randomEmail}}\"\n}\n\n\n\n\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{dominio}}/api/clientes",
 							"host": [
@@ -39,14 +81,426 @@
 								"clientes"
 							]
 						},
-						"description": "### Response\n\nThe successful response will have a `200 OK` status and will return a JSON array containing client objects.\n\n``` json\n[\n  {\n    \"id_cliente\": \"number\",\n    \"apellidoNombre\": \"string\",\n    \"dni\": \"string\",\n    \"fechaNacimiento\": \"string\",\n    \"correoElectronico\": \"string\",\n    \"contrasena\": \"string\"\n  }\n]\n\n ```\n\nThis JSON schema represents the structure of the response data, with each client object containing the specified keys and their respective data types."
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
 					},
 					"response": [
 						{
-							"name": "clientes (GET)",
+							"name": "clientes",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SimpleToken 3438a74c821a8d3fd0505a24ef4f19279abeb0f48cd367db41599e8581b3e45d",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"apellidoNombre\": \"{{$randomFullName}}\",\n    \"dni\": \"12345678\",\n    \"fechaNacimiento\": \"1985-04-15T00:00:00\",\n    \"correoElectronico\": \"{{$randomEmail}}\"\n}\n\n\n\n\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dominio}}/api/clientes",
+									"host": [
+										"{{dominio}}"
+									],
+									"path": [
+										"api",
+										"clientes"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 03:42:17 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id_cliente\": 3,\n    \"apellidoNombre\": \"Alberta Wolf\",\n    \"dni\": \"12345678\",\n    \"fechaNacimiento\": \"1985-04-15T00:00:00.000+00:00\",\n    \"correoElectronico\": \"Dorthy.Goodwin30@yahoo.com\"\n}"
+						}
+					]
+				},
+				{
+					"name": "clientes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SimpleToken 3438a74c821a8d3fd0505a24ef4f19279abeb0f48cd367db41599e8581b3e45d",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_cliente\": 3,\n    \"apellidoNombre\": \"Alberta Wolf\",\n    \"dni\": \"12345678\",\n    \"fechaNacimiento\": \"1985-04-15T00:00:00.000+00:00\",\n    \"correoElectronico\": \"Dorthy.Goodwin30@yahoo.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dominio}}/api/clientes/3",
+							"host": [
+								"{{dominio}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"3"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": [
+						{
+							"name": "clientes",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SimpleToken 3438a74c821a8d3fd0505a24ef4f19279abeb0f48cd367db41599e8581b3e45d",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id_cliente\": 3,\n    \"apellidoNombre\": \"Alberta Wolf\",\n    \"dni\": \"12345678\",\n    \"fechaNacimiento\": \"1985-04-15T00:00:00.000+00:00\",\n    \"correoElectronico\": \"Dorthy.Goodwin30@yahoo.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dominio}}/api/clientes/3",
+									"host": [
+										"{{dominio}}"
+									],
+									"path": [
+										"api",
+										"clientes",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 03:44:17 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id_cliente\": 3,\n    \"apellidoNombre\": \"Alberta Wolf\",\n    \"dni\": \"12345678\",\n    \"fechaNacimiento\": \"1985-04-15T00:00:00.000+00:00\",\n    \"correoElectronico\": \"Dorthy.Goodwin30@yahoo.com\"\n}"
+						}
+					]
+				},
+				{
+					"name": "clientes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SimpleToken 3438a74c821a8d3fd0505a24ef4f19279abeb0f48cd367db41599e8581b3e45d",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dominio}}/api/clientes/2",
+							"host": [
+								"{{dominio}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"2"
+							]
+						},
+						"description": "### Delete Client\n\nThis endpoint is used to delete a specific client by providing the client's ID in the URL.\n\n#### Request\n\n- Method: DELETE\n    \n- URL: `{{dominio}}/api/clientes/10`\n    \n\n#### Response\n\nThe response of this request is documented as a JSON schema:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "clientes",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SimpleToken 3438a74c821a8d3fd0505a24ef4f19279abeb0f48cd367db41599e8581b3e45d",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dominio}}/api/clientes/2",
+									"host": [
+										"{{dominio}}"
+									],
+									"path": [
+										"api",
+										"clientes",
+										"2"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 03:45:18 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "clientes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SimpleToken 3438a74c821a8d3fd0505a24ef4f19279abeb0f48cd367db41599e8581b3e45d",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{dominio}}/api/clientes",
+							"host": [
+								"{{dominio}}"
+							],
+							"path": [
+								"api",
+								"clientes"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "clientes",
 							"originalRequest": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SimpleToken 3438a74c821a8d3fd0505a24ef4f19279abeb0f48cd367db41599e8581b3e45d",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{dominio}}/api/clientes",
 									"host": [
@@ -75,82 +529,28 @@
 									"value": "Access-Control-Request-Headers"
 								},
 								{
-									"key": "Content-Type",
-									"value": "application/json"
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
 								},
 								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
+									"key": "X-XSS-Protection",
+									"value": "0"
 								},
 								{
-									"key": "Date",
-									"value": "Thu, 05 Sep 2024 01:24:38 GMT"
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
 								},
 								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
+									"key": "Pragma",
+									"value": "no-cache"
 								},
 								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"id_cliente\": 2,\n        \"apellidoNombre\": \"Jasmine Huellll\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1989-12-30T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Rosendo.Metz@gmail.com\",\n        \"contrasena\": \"CtV7W8Chl45wseb\"\n    },\n    {\n        \"id_cliente\": 3,\n        \"apellidoNombre\": \"Kristopher Morar\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Johathan_Satterfield51@gmail.com\",\n        \"contrasena\": \"p4jdvgcMXb_HKGN\"\n    },\n    {\n        \"id_cliente\": 4,\n        \"apellidoNombre\": \"Elaine Ebert\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Selena_Schowalter@gmail.com\",\n        \"contrasena\": \"Ad0CXhfIi6Ebr5R\"\n    },\n    {\n        \"id_cliente\": 5,\n        \"apellidoNombre\": \"Martin\",\n        \"dni\": \"9999\",\n        \"fechaNacimiento\": \"2024-02-03T03:00:00.000+00:00\",\n        \"correoElectronico\": \"ccccc\",\n        \"contrasena\": \"31\"\n    },\n    {\n        \"id_cliente\": 6,\n        \"apellidoNombre\": \"Norman Jacobi III\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Jewell7@yahoo.com\",\n        \"contrasena\": \"qC6J6Qxg0PND4pC\"\n    },\n    {\n        \"id_cliente\": 8,\n        \"apellidoNombre\": \"Kent Stokes\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Keven_Langworth@yahoo.com\",\n        \"contrasena\": \"j7nSqafe8K0sBvS\"\n    },\n    {\n        \"id_cliente\": 9,\n        \"apellidoNombre\": \"Bruce Little\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Ayana.Wintheiser@hotmail.com\",\n        \"contrasena\": \"skjTD2cwXbAJe6c\"\n    },\n    {\n        \"id_cliente\": 11,\n        \"apellidoNombre\": \"Cary Rath\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1989-12-31T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Cornelius_Gusikowski@gmail.com\",\n        \"contrasena\": \"oaGrMZCfyPRWUf4\"\n    },\n    {\n        \"id_cliente\": 14,\n        \"apellidoNombre\": \"Clint Harber\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Stephania39@hotmail.com\",\n        \"contrasena\": \"aqgWTNnXGC1c0nm\"\n    },\n    {\n        \"id_cliente\": 15,\n        \"apellidoNombre\": \"Lester Veum\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Verner30@gmail.com\",\n        \"contrasena\": \"K2cICluTdlp5XlB\"\n    },\n    {\n        \"id_cliente\": 17,\n        \"apellidoNombre\": \"Elaine Roberts\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Tatyana_Wiza29@hotmail.com\",\n        \"contrasena\": \"AG0U9NgdbpSA2ab\"\n    },\n    {\n        \"id_cliente\": 19,\n        \"apellidoNombre\": \"Walter Weissnat\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Demetris_Fay8@gmail.com\",\n        \"contrasena\": \"DWPxXaMnyQTN6WI\"\n    },\n    {\n        \"id_cliente\": 21,\n        \"apellidoNombre\": \"ddd\",\n        \"dni\": \"ddd\",\n        \"fechaNacimiento\": \"2024-08-05T00:00:00.000+00:00\",\n        \"correoElectronico\": \"kkk@gmail.com\",\n        \"contrasena\": \"11111\"\n    },\n    {\n        \"id_cliente\": 23,\n        \"apellidoNombre\": \"ddd\",\n        \"dni\": \"ddd\",\n        \"fechaNacimiento\": \"2024-08-07T00:00:00.000+00:00\",\n        \"correoElectronico\": \"aaaaa@gmail.com\",\n        \"contrasena\": \"11111\"\n    },\n    {\n        \"id_cliente\": 24,\n        \"apellidoNombre\": \"Martin\",\n        \"dni\": \"9999\",\n        \"fechaNacimiento\": \"2024-08-13T00:00:00.000+00:00\",\n        \"correoElectronico\": \"iiiiiiiiiiiii@gmail.com\",\n        \"contrasena\": \"22222\"\n    },\n    {\n        \"id_cliente\": 25,\n        \"apellidoNombre\": \"Lori Reichel\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Chasity93@yahoo.com\",\n        \"contrasena\": \"Il1OBeiv0XZZcbF\"\n    },\n    {\n        \"id_cliente\": 26,\n        \"apellidoNombre\": \"Kim Runte\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Kylee_OConner@hotmail.com\",\n        \"contrasena\": \"UEFHPLbJANS1vG_\"\n    },\n    {\n        \"id_cliente\": 27,\n        \"apellidoNombre\": \"Alma Hilpert\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Iliana_Larkin@hotmail.com\",\n        \"contrasena\": \"q8c3sVtvxTsWS4D\"\n    },\n    {\n        \"id_cliente\": 28,\n        \"apellidoNombre\": \"Arlene Mills\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Vicenta.Thompson68@yahoo.com\",\n        \"contrasena\": \"cvcCr2dlKSWWf75\"\n    },\n    {\n        \"id_cliente\": 29,\n        \"apellidoNombre\": \"Blake Stanton\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Euna_Cruickshank84@hotmail.com\",\n        \"contrasena\": \"GITCxRUPysdL7WW\"\n    },\n    {\n        \"id_cliente\": 30,\n        \"apellidoNombre\": \"Cory Wilderman\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Deborah_Stoltenberg@yahoo.com\",\n        \"contrasena\": \"dWeftSY6eq4dVTu\"\n    },\n    {\n        \"id_cliente\": 31,\n        \"apellidoNombre\": \"Rose Schaden\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Eloy.Rath@hotmail.com\",\n        \"contrasena\": \"yNdBolaWnmHdu10\"\n    },\n    {\n        \"id_cliente\": 32,\n        \"apellidoNombre\": \"Ms. Dana Greenholt\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Chyna.Wehner50@hotmail.com\",\n        \"contrasena\": \"MTUym2IJxR9WKIG\"\n    },\n    {\n        \"id_cliente\": 33,\n        \"apellidoNombre\": \"Robin Jaskolski\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Savannah.Kulas33@hotmail.com\",\n        \"contrasena\": \"72RzXMdzWTYYd2I\"\n    },\n    {\n        \"id_cliente\": 34,\n        \"apellidoNombre\": \"Mr. Roberta Beier\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Jakob_Jacobs99@gmail.com\",\n        \"contrasena\": \"758SAatsCHwtwmB\"\n    },\n    {\n        \"id_cliente\": 35,\n        \"apellidoNombre\": \"Miss Al Borer\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Destiny.Heaney82@yahoo.com\",\n        \"contrasena\": \"Rqm566b_3CyYEME\"\n    },\n    {\n        \"id_cliente\": 36,\n        \"apellidoNombre\": \"Tyrone Bayer\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Tracey.Nicolas@gmail.com\",\n        \"contrasena\": \"0oWyZy79CIfnxD9\"\n    },\n    {\n        \"id_cliente\": 37,\n        \"apellidoNombre\": \"Vincent Roberts\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Brandi66@hotmail.com\",\n        \"contrasena\": \"om_bTHjIHkwdglK\"\n    },\n    {\n        \"id_cliente\": 38,\n        \"apellidoNombre\": \"Dr. Ross Skiles\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Aliya.Barrows@hotmail.com\",\n        \"contrasena\": \"rngHst2iqn3keiC\"\n    },\n    {\n        \"id_cliente\": 39,\n        \"apellidoNombre\": \"Johnnie Kirlin\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Callie.Williamson@hotmail.com\",\n        \"contrasena\": \"iXZRERXXLkq7ZvN\"\n    },\n    {\n        \"id_cliente\": 40,\n        \"apellidoNombre\": \"Alexander Baumbach\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Dominic89@gmail.com\",\n        \"contrasena\": \"pfX2_xe27havllF\"\n    },\n    {\n        \"id_cliente\": 41,\n        \"apellidoNombre\": \"Kristine Brown IV\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Tremayne_Weber91@hotmail.com\",\n        \"contrasena\": \"cJZ_a_ZQq93dGWD\"\n    },\n    {\n        \"id_cliente\": 42,\n        \"apellidoNombre\": \"Everett Leannon\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Celine_Bernier@hotmail.com\",\n        \"contrasena\": \"IegRtRzZs4uKrc0\"\n    },\n    {\n        \"id_cliente\": 43,\n        \"apellidoNombre\": \"Darla Nolan\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Lacy.Kihn66@gmail.com\",\n        \"contrasena\": \"OFduZLHQLa6ymwn\"\n    },\n    {\n        \"id_cliente\": 44,\n        \"apellidoNombre\": \"Essie Bailey\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Penelope.Rohan57@hotmail.com\",\n        \"contrasena\": \"ylAMDEOwvabfHaQ\"\n    },\n    {\n        \"id_cliente\": 45,\n        \"apellidoNombre\": \"Vickie Botsford\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Amie68@yahoo.com\",\n        \"contrasena\": \"tc1E61CVSM9aSuC\"\n    },\n    {\n        \"id_cliente\": 46,\n        \"apellidoNombre\": \"Marc Gusikowski\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Soledad.Schaden80@gmail.com\",\n        \"contrasena\": \"ZJZbrtxbjfM3f5d\"\n    },\n    {\n        \"id_cliente\": 47,\n        \"apellidoNombre\": \"Marcella Predovic\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Adeline65@yahoo.com\",\n        \"contrasena\": \"tOgZW53mTXgxetT\"\n    },\n    {\n        \"id_cliente\": 48,\n        \"apellidoNombre\": \"Clay Larkin\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Carli5@gmail.com\",\n        \"contrasena\": \"WmmtiZR8nuQKjg_\"\n    },\n    {\n        \"id_cliente\": 49,\n        \"apellidoNombre\": \"Gene O'Hara\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Dell_Gleichner@yahoo.com\",\n        \"contrasena\": \"nDI8C61FgJF5vaa\"\n    },\n    {\n        \"id_cliente\": 50,\n        \"apellidoNombre\": \"Kendra Renner\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Kevin.Donnelly52@gmail.com\",\n        \"contrasena\": \"wgxNzMMhdQAI2L2\"\n    },\n    {\n        \"id_cliente\": 51,\n        \"apellidoNombre\": \"Walter Kulas\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Alexander.Hagenes28@yahoo.com\",\n        \"contrasena\": \"66bjquJ2sGadWX0\"\n    },\n    {\n        \"id_cliente\": 52,\n        \"apellidoNombre\": \"Willie Pfannerstill\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Graciela_Ankunding31@yahoo.com\",\n        \"contrasena\": \"yAu7ajrLbGzPOl6\"\n    },\n    {\n        \"id_cliente\": 53,\n        \"apellidoNombre\": \"Mrs. Nettie Kozey\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Lexus.Gislason@hotmail.com\",\n        \"contrasena\": \"cgm2oaf2u9ovAoR\"\n    },\n    {\n        \"id_cliente\": 54,\n        \"apellidoNombre\": \"Shari McCullough DDS\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Raymundo_Gerlach42@yahoo.com\",\n        \"contrasena\": \"S2lonEq8TnHrW9B\"\n    },\n    {\n        \"id_cliente\": 55,\n        \"apellidoNombre\": \"Bobby Wunsch V\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Kory.Mosciski91@hotmail.com\",\n        \"contrasena\": \"OybDCsRVIamnf3R\"\n    },\n    {\n        \"id_cliente\": 56,\n        \"apellidoNombre\": \"Fernando Lakin\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Darryl_Rutherford68@gmail.com\",\n        \"contrasena\": \"9AFMnexv8MTg3yv\"\n    },\n    {\n        \"id_cliente\": 57,\n        \"apellidoNombre\": \"Claude Lakin\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Adolph_Jacobson40@yahoo.com\",\n        \"contrasena\": \"eQYxsVEFD29BMcI\"\n    },\n    {\n        \"id_cliente\": 58,\n        \"apellidoNombre\": \"Carroll Wiza\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Mohammad.Kuvalis@yahoo.com\",\n        \"contrasena\": \"vA4ksaAxaqqVOZ6\"\n    },\n    {\n        \"id_cliente\": 59,\n        \"apellidoNombre\": \"Angelo Carter\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Chandler_Schroeder9@yahoo.com\",\n        \"contrasena\": \"TvrI2agrf7hXm9T\"\n    },\n    {\n        \"id_cliente\": 60,\n        \"apellidoNombre\": \"Rudolph Hilpert\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Emelie_Barton@hotmail.com\",\n        \"contrasena\": \"sKFwdLJHQboRmPm\"\n    },\n    {\n        \"id_cliente\": 61,\n        \"apellidoNombre\": \"Ervin Kunze\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Crawford66@gmail.com\",\n        \"contrasena\": \"y7EiomqlsIi1ZLJ\"\n    },\n    {\n        \"id_cliente\": 62,\n        \"apellidoNombre\": \"Pablo Schowalter\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Shayna_Pollich@yahoo.com\",\n        \"contrasena\": \"Z1FxX030Mh7w2vA\"\n    },\n    {\n        \"id_cliente\": 63,\n        \"apellidoNombre\": \"Olga Schuppe\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Vinnie_Quitzon@gmail.com\",\n        \"contrasena\": \"BeptCwKladqUs3M\"\n    },\n    {\n        \"id_cliente\": 64,\n        \"apellidoNombre\": \"Luther Johnson\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Kade_Barrows53@yahoo.com\",\n        \"contrasena\": \"GS3vRnpzNN9JNYu\"\n    },\n    {\n        \"id_cliente\": 65,\n        \"apellidoNombre\": \"Alvin Reynolds\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Ines.Yost38@yahoo.com\",\n        \"contrasena\": \"_6mrNT3wGvZyCxa\"\n    },\n    {\n        \"id_cliente\": 66,\n        \"apellidoNombre\": \"Lena Leffler\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Mazie99@gmail.com\",\n        \"contrasena\": \"x8VBRXCeAfLl8T8\"\n    },\n    {\n        \"id_cliente\": 67,\n        \"apellidoNombre\": \"Conrad Hayes V\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Dewayne71@gmail.com\",\n        \"contrasena\": \"Wj_Vks7XkXW4vc1\"\n    },\n    {\n        \"id_cliente\": 68,\n        \"apellidoNombre\": \"Ernestine Schaefer\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Brionna.Hegmann@gmail.com\",\n        \"contrasena\": \"cjZTlKMZodHy9Io\"\n    },\n    {\n        \"id_cliente\": 69,\n        \"apellidoNombre\": \"Shannon Frami\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"David_Lesch@yahoo.com\",\n        \"contrasena\": \"aJHZbOftfhtuhDq\"\n    },\n    {\n        \"id_cliente\": 70,\n        \"apellidoNombre\": \"Miss Rosie Yost\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Tristian_McDermott0@yahoo.com\",\n        \"contrasena\": \"qRWjTBYTUF_vRjY\"\n    },\n    {\n        \"id_cliente\": 71,\n        \"apellidoNombre\": \"Krystal Mueller\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Elmira_Wiza@hotmail.com\",\n        \"contrasena\": \"6IBPjsqdozhG2Z6\"\n    },\n    {\n        \"id_cliente\": 72,\n        \"apellidoNombre\": \"Victor Kilback\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Marcellus_Cremin94@hotmail.com\",\n        \"contrasena\": \"6U39mRpW2NpTfpm\"\n    },\n    {\n        \"id_cliente\": 73,\n        \"apellidoNombre\": \"Lola Pollich\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Florence5@hotmail.com\",\n        \"contrasena\": \"2Txk3kclXoBd1dT\"\n    },\n    {\n        \"id_cliente\": 75,\n        \"apellidoNombre\": \"Clyde Hermiston\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Marcelino_MacGyver1@hotmail.com\",\n        \"contrasena\": \"XdTsB2zrVf_3W8d\"\n    },\n    {\n        \"id_cliente\": 76,\n        \"apellidoNombre\": \"Simon Mayert DVM\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Elna85@gmail.com\",\n        \"contrasena\": \"wN0n85qsA0iT3St\"\n    },\n    {\n        \"id_cliente\": 77,\n        \"apellidoNombre\": \"Woodrow Schumm\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Casper_Leannon49@yahoo.com\",\n        \"contrasena\": \"mx3LJbwb8ZJJuVb\"\n    },\n    {\n        \"id_cliente\": 78,\n        \"apellidoNombre\": \"Richard Ankunding\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Johnnie44@hotmail.com\",\n        \"contrasena\": \"cgW58E543CR5r4t\"\n    },\n    {\n        \"id_cliente\": 79,\n        \"apellidoNombre\": \"Jacqueline Corwin\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Maxime_Orn3@gmail.com\",\n        \"contrasena\": \"qvLlrRp8PlNZHrl\"\n    },\n    {\n        \"id_cliente\": 80,\n        \"apellidoNombre\": \"Virgil McDermott\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Enrico75@hotmail.com\",\n        \"contrasena\": \"lDlonX2Swv_G6vf\"\n    },\n    {\n        \"id_cliente\": 81,\n        \"apellidoNombre\": \"Andrea Larkin\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Dayana55@yahoo.com\",\n        \"contrasena\": \"rhBIxT93zi05ztM\"\n    },\n    {\n        \"id_cliente\": 82,\n        \"apellidoNombre\": \"Kenneth Stokes\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Gisselle.Nolan@hotmail.com\",\n        \"contrasena\": \"qpG1bt1onIWo6PO\"\n    },\n    {\n        \"id_cliente\": 83,\n        \"apellidoNombre\": \"Krista Zemlak\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Misty_Rutherford@hotmail.com\",\n        \"contrasena\": \"8SxPmGpQ3YAimHg\"\n    },\n    {\n        \"id_cliente\": 84,\n        \"apellidoNombre\": \"Tracy Cronin\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Sedrick.Thompson91@gmail.com\",\n        \"contrasena\": \"2wT7dk9alQQGuXN\"\n    },\n    {\n        \"id_cliente\": 85,\n        \"apellidoNombre\": \"Kellie Pollich\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Ethelyn_Johnson@gmail.com\",\n        \"contrasena\": \"WGWKast3togYc76\"\n    },\n    {\n        \"id_cliente\": 86,\n        \"apellidoNombre\": \"Ms. Natalie Sauer\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Jerrold25@hotmail.com\",\n        \"contrasena\": \"eSvn6lO42b2lkop\"\n    },\n    {\n        \"id_cliente\": 87,\n        \"apellidoNombre\": \"Andrea Johns\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Maymie.Carroll@gmail.com\",\n        \"contrasena\": \"EirNAhsVW54sDrC\"\n    },\n    {\n        \"id_cliente\": 88,\n        \"apellidoNombre\": \"Jeremy Roob\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Edwina_Little@hotmail.com\",\n        \"contrasena\": \"3L5tyJTSAw0dRPc\"\n    },\n    {\n        \"id_cliente\": 89,\n        \"apellidoNombre\": \"Nicholas Hayes\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Dexter_Stanton@hotmail.com\",\n        \"contrasena\": \"1Rxa_mzTnvmMzCf\"\n    },\n    {\n        \"id_cliente\": 90,\n        \"apellidoNombre\": \"Clayton Reilly\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Martine.Bayer@gmail.com\",\n        \"contrasena\": \"9va3idhmRYxJmPz\"\n    },\n    {\n        \"id_cliente\": 91,\n        \"apellidoNombre\": \"Miss Susan Balistreri\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Faustino_Kulas91@yahoo.com\",\n        \"contrasena\": \"H3F77OZUkNALVFh\"\n    },\n    {\n        \"id_cliente\": 92,\n        \"apellidoNombre\": \"Melba Jenkins\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Arvilla_Homenick29@yahoo.com\",\n        \"contrasena\": \"GKBjaNd2A0bCsAj\"\n    },\n    {\n        \"id_cliente\": 93,\n        \"apellidoNombre\": \"Anthony Keebler\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Noemi74@gmail.com\",\n        \"contrasena\": \"gR_8cgqWyEDukVs\"\n    },\n    {\n        \"id_cliente\": 94,\n        \"apellidoNombre\": \"Carl Hagenes\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Vincenza.Watsica52@yahoo.com\",\n        \"contrasena\": \"hfCK6joITMPRG4D\"\n    },\n    {\n        \"id_cliente\": 95,\n        \"apellidoNombre\": \"Ms. Sean Hagenes\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Golden.Watsica@hotmail.com\",\n        \"contrasena\": \"RzpWcCRvEG9KEXh\"\n    },\n    {\n        \"id_cliente\": 96,\n        \"apellidoNombre\": \"Francis Price\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Jennie_Donnelly@gmail.com\",\n        \"contrasena\": \"h5oNbkqI6LUDlXQ\"\n    },\n    {\n        \"id_cliente\": 97,\n        \"apellidoNombre\": \"Shaun Ankunding\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Rocky.MacGyver14@yahoo.com\",\n        \"contrasena\": \"IqKKXfyKJnWlTs0\"\n    },\n    {\n        \"id_cliente\": 98,\n        \"apellidoNombre\": \"Tommie Schamberger\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Casimer_Heaney33@gmail.com\",\n        \"contrasena\": \"TgDEss16wgRv0sJ\"\n    },\n    {\n        \"id_cliente\": 99,\n        \"apellidoNombre\": \"Mr. Ruth Jacobi\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Lavada50@hotmail.com\",\n        \"contrasena\": \"DgT4ThwqFBNQJpI\"\n    },\n    {\n        \"id_cliente\": 100,\n        \"apellidoNombre\": \"Guadalupe Kling\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Kim.Effertz46@yahoo.com\",\n        \"contrasena\": \"1sPUqwJIlQ5yXBS\"\n    },\n    {\n        \"id_cliente\": 101,\n        \"apellidoNombre\": \"Velma Schiller\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Fredrick.Beahan14@yahoo.com\",\n        \"contrasena\": \"cvtQ7MP9Igl7Fe5\"\n    },\n    {\n        \"id_cliente\": 102,\n        \"apellidoNombre\": \"Bonnie Barrows\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Nola_Bins36@hotmail.com\",\n        \"contrasena\": \"tdd_43iDV4czuUr\"\n    },\n    {\n        \"id_cliente\": 103,\n        \"apellidoNombre\": \"Luther Cruickshank\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Neal98@yahoo.com\",\n        \"contrasena\": \"ei1n0VS_ngBMGnT\"\n    },\n    {\n        \"id_cliente\": 104,\n        \"apellidoNombre\": \"Mrs. Carol Rogahn\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Dahlia_Mitchell27@yahoo.com\",\n        \"contrasena\": \"HVqNI23Z6ri6P_6\"\n    },\n    {\n        \"id_cliente\": 105,\n        \"apellidoNombre\": \"Everett Fay IV\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Newton87@hotmail.com\",\n        \"contrasena\": \"FKOXQCyqPyua7lv\"\n    },\n    {\n        \"id_cliente\": 106,\n        \"apellidoNombre\": \"Elijah Reinger\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Aubrey.Yost@yahoo.com\",\n        \"contrasena\": \"g5pD2b3j0P9Dk5I\"\n    },\n    {\n        \"id_cliente\": 107,\n        \"apellidoNombre\": \"Lindsay Kemmer\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Carter22@yahoo.com\",\n        \"contrasena\": \"3bI6tgteCfwYi1C\"\n    },\n    {\n        \"id_cliente\": 108,\n        \"apellidoNombre\": \"Bessie Murazik\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Jasmin_Boehm@yahoo.com\",\n        \"contrasena\": \"m33v69qt6H2rMN5\"\n    },\n    {\n        \"id_cliente\": 109,\n        \"apellidoNombre\": \"jean\",\n        \"dni\": \"9999999\",\n        \"fechaNacimiento\": \"1990-10-10T00:00:00.000+00:00\",\n        \"correoElectronico\": \"jean@gmail.com\",\n        \"contrasena\": \"11111\"\n    },\n    {\n        \"id_cliente\": 110,\n        \"apellidoNombre\": \"leo\",\n        \"dni\": \"666\",\n        \"fechaNacimiento\": \"2024-07-29T00:00:00.000+00:00\",\n        \"correoElectronico\": \"jjj@gmail.com\",\n        \"contrasena\": \"cvvvv\"\n    },\n    {\n        \"id_cliente\": 111,\n        \"apellidoNombre\": \"Richard Gorczany\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Kennith88@gmail.com\",\n        \"contrasena\": \"UaKhNk0WXbCAAqG\"\n    },\n    {\n        \"id_cliente\": 112,\n        \"apellidoNombre\": \"Edna Harris\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Myrtle_Homenick39@gmail.com\",\n        \"contrasena\": \"bGVApoWyUYupRmL\"\n    },\n    {\n        \"id_cliente\": 113,\n        \"apellidoNombre\": \"sss\",\n        \"dni\": \"sss\",\n        \"fechaNacimiento\": \"2024-07-31T00:00:00.000+00:00\",\n        \"correoElectronico\": \"sss@gmail.com\",\n        \"contrasena\": \"1111\"\n    },\n    {\n        \"id_cliente\": 114,\n        \"apellidoNombre\": \"Bruno\",\n        \"dni\": \"9999999\",\n        \"fechaNacimiento\": \"2024-08-07T00:00:00.000+00:00\",\n        \"correoElectronico\": \"bruno@gmail.com\",\n        \"contrasena\": \"123\"\n    },\n    {\n        \"id_cliente\": 115,\n        \"apellidoNombre\": \"Janie Bednar\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Shana.Jacobson75@yahoo.com\",\n        \"contrasena\": \"w2ayQgSDy_Kv51O\"\n    }\n]"
-						}
-					]
-				},
-				{
-					"name": "Por ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{dominio}}/api/clientes/6",
-							"host": [
-								"{{dominio}}"
-							],
-							"path": [
-								"api",
-								"clientes",
-								"6"
-							]
-						},
-						"description": "This endpoint retrieves the details of a specific client with the ID 6. The response for this request follows a JSON schema as shown below:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id_cliente\": {\n      \"type\": \"integer\"\n    },\n    \"apellidoNombre\": {\n      \"type\": \"string\"\n    },\n    \"dni\": {\n      \"type\": \"string\"\n    },\n    \"fechaNacimiento\": {\n      \"type\": \"string\"\n    },\n    \"correoElectronico\": {\n      \"type\": \"string\"\n    },\n    \"contrasena\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```"
-					},
-					"response": [
-						{
-							"name": "New Request",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{dominio}}/api/clientes/6",
-									"host": [
-										"{{dominio}}"
-									],
-									"path": [
-										"api",
-										"clientes",
-										"6"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
+									"key": "Expires",
+									"value": "0"
 								},
 								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
+									"key": "X-Frame-Options",
+									"value": "DENY"
 								},
 								{
 									"key": "Content-Type",
@@ -162,7 +562,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Fri, 16 Aug 2024 02:12:15 GMT"
+									"value": "Mon, 11 Nov 2024 03:17:27 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -174,410 +574,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id_cliente\": 6,\n    \"apellidoNombre\": \"Norman Jacobi III\",\n    \"dni\": \"000\",\n    \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n    \"correoElectronico\": \"Jewell7@yahoo.com\",\n    \"contrasena\": \"qC6J6Qxg0PND4pC\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Por Nombre",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{dominio}}/api/clientes/buscarPorNombre/Leo",
-							"host": [
-								"{{dominio}}"
-							],
-							"path": [
-								"api",
-								"clientes",
-								"buscarPorNombre",
-								"Leo"
-							]
-						},
-						"description": "This endpoint makes an HTTP GET request to search for clients by name. The request should include the name of the client as a path parameter in the URL.\n\n### Response\n\nThe response for this request is a JSON array containing objects with the following properties:\n\n- `id_cliente` (number): The unique identifier of the client.\n    \n- `apellidoNombre` (string): The last name and first name of the client.\n    \n- `dni` (string): The national identification number of the client.\n    \n- `fechaNacimiento` (string): The date of birth of the client.\n    \n- `correoElectronico` (string): The email address of the client.\n    \n- `contrasena` (string): The password of the client.\n    \n\n``` json\n[\n  {\n    \"id_cliente\": 0,\n    \"apellidoNombre\": \"\",\n    \"dni\": \"\",\n    \"fechaNacimiento\": \"\",\n    \"correoElectronico\": \"\",\n    \"contrasena\": \"\"\n  }\n]\n\n ```"
-					},
-					"response": [
-						{
-							"name": "New Request",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{dominio}}/api/clientes/buscarPorNombre/Leo",
-									"host": [
-										"{{dominio}}"
-									],
-									"path": [
-										"api",
-										"clientes",
-										"buscarPorNombre",
-										"Leo"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 16 Aug 2024 02:13:20 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"id_cliente\": 110,\n        \"apellidoNombre\": \"leo\",\n        \"dni\": \"666\",\n        \"fechaNacimiento\": \"2024-07-29T00:00:00.000+00:00\",\n        \"correoElectronico\": \"jjj@gmail.com\",\n        \"contrasena\": \"cvvvv\"\n    }\n]"
-						}
-					]
-				},
-				{
-					"name": "clientes",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Successful POST request\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n        \"apellidoNombre\": \"{{$randomFullName}}\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01\",\n        \"correoElectronico\": \"{{$randomEmail}}\",\n        \"contrasena\": \"{{$randomPassword}}\"\n    }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{dominio}}/api/clientes",
-							"host": [
-								"{{dominio}}"
-							],
-							"path": [
-								"api",
-								"clientes"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": [
-						{
-							"name": "clientes (POST)",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n        \"apellidoNombre\": \"{{$randomFullName}}\",\n        \"dni\": \"{{$randomInt}}\",\n        \"fechaNacimiento\": \"1990-01-01\",\n        \"correoElectronico\": \"{{$randomEmail}}\",\n        \"contrasena\": \"{{$randomPassword}}\"\n    }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{dominio}}//api/clientes",
-									"host": [
-										"{{dominio}}"
-									],
-									"path": [
-										"",
-										"api",
-										"clientes"
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 12 Aug 2024 02:43:16 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id_cliente\": 25,\n    \"apellidoNombre\": \"Mathew Goyette Jr.\",\n    \"dni\": \"921\",\n    \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n    \"correoElectronico\": \"Heloise_Brown@gmail.com\",\n    \"contrasena\": \"Bnn0OmgvAc35v6b\"\n}"
-						}
-					]
-				},
-				{
-					"name": "clientes",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Successful PUT request\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n        \"id_cliente\": 5,\n        \"apellidoNombre\": \"Martin\",\n        \"dni\": \"9999\",\n        \"fechaNacimiento\": \"2024-02-03T03:00:00.000+00:00\",\n        \"correoElectronico\": \"ccccc\",\n        \"contrasena\": \"321\"\n    },",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{dominio}}/api/clientes/5",
-							"host": [
-								"{{dominio}}"
-							],
-							"path": [
-								"api",
-								"clientes",
-								"5"
-							]
-						},
-						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
-					},
-					"response": [
-						{
-							"name": "clientes  (PUT)",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n        \"id_cliente\": 5,\n        \"apellidoNombre\": \"Martin\",\n        \"dni\": \"9999\",\n        \"fechaNacimiento\": \"2024-02-03T03:00:00.000+00:00\",\n        \"correoElectronico\": \"ccccc\",\n        \"contrasena\": \"321\"\n    },",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{dominio}}/api/clientes/5",
-									"host": [
-										"{{dominio}}"
-									],
-									"path": [
-										"api",
-										"clientes",
-										"5"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 12 Aug 2024 00:30:04 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id_cliente\": 5,\n    \"apellidoNombre\": \"Martin\",\n    \"dni\": \"9999\",\n    \"fechaNacimiento\": \"2024-02-03T03:00:00.000+00:00\",\n    \"correoElectronico\": \"ccccc\",\n    \"contrasena\": \"321\"\n}"
-						}
-					]
-				},
-				{
-					"name": "clientes",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Successful DELETE request\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{dominio}}/api/clientes/10",
-							"host": [
-								"{{dominio}}"
-							],
-							"path": [
-								"api",
-								"clientes",
-								"10"
-							]
-						},
-						"description": "### Delete Client\n\nThis endpoint is used to delete a specific client by providing the client's ID in the URL.\n\n#### Request\n\n- Method: DELETE\n    \n- URL: `{{dominio}}/api/clientes/10`\n    \n\n#### Response\n\nThe response of this request is documented as a JSON schema:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```"
-					},
-					"response": [
-						{
-							"name": "clientes (DELETE)",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{dominio}}/clientes/10",
-									"host": [
-										"{{dominio}}"
-									],
-									"path": [
-										"clientes",
-										"10"
-									]
-								}
-							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 12 Aug 2024 00:31:07 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": null
+							"body": "[\n    {\n        \"id_cliente\": 1,\n        \"apellidoNombre\": \"Juan Pérez\",\n        \"dni\": \"12345678\",\n        \"fechaNacimiento\": \"1985-04-15T03:00:00.000+00:00\",\n        \"correoElectronico\": \"juan.perez@example.com\"\n    },\n    {\n        \"id_cliente\": 2,\n        \"apellidoNombre\": \"María García\",\n        \"dni\": \"87654321\",\n        \"fechaNacimiento\": \"1990-08-23T03:00:00.000+00:00\",\n        \"correoElectronico\": \"maria.garcia@example.com\"\n    }\n]"
 						}
 					]
 				}
@@ -604,7 +601,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenSimple}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{dominio}}/api/productos",
 							"host": [
@@ -617,70 +620,19 @@
 						},
 						"description": "This is a GET request to retrieve a list of products from the specified endpoint. There is no request body for a GET request, but query parameters can be used to specify the resource to retrieve.\n\n### Example\n\n``` json\n[\n    {\n        \"id_producto\": 0,\n        \"producto\": \"\",\n        \"precio\": 0\n    }\n]\n\n ```\n\nA successful response will have a `200 OK` status and will include an array of product objects, each containing an `id_producto`, `producto`, and `precio`.\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
 					},
-					"response": [
-						{
-							"name": "productos (GET)",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{dominio}}/api/productos",
-									"host": [
-										"{{dominio}}"
-									],
-									"path": [
-										"api",
-										"productos"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 12 Aug 2024 00:47:15 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"id_producto\": 2,\n        \"producto\": \"mouse\",\n        \"precio\": 5698.1\n    }\n]"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Por ID",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenSimple}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{dominio}}/api/productos/1",
 							"host": [
@@ -694,65 +646,7 @@
 						},
 						"description": "### Retrieve Product Details\n\nThis endpoint retrieves the details of a specific product with the ID \"1\".\n\n#### Example\n\n```\nGET {{dominio}}/api/productos/1\nResponse:\n{\n  \"id_producto\": 0,\n  \"producto\": \"\",\n  \"precio\": 0\n}\n\n ```\n\nThe response will be in JSON format and will include the following fields:\n\n- `id_producto` (number): The unique identifier of the product.\n    \n- `producto` (string): The name or description of the product.\n    \n- `precio` (number): The price of the product.\n    \n\n#### JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id_producto\": {\n      \"type\": \"number\"\n    },\n    \"producto\": {\n      \"type\": \"string\"\n    },\n    \"precio\": {\n      \"type\": \"number\"\n    }\n  }\n}\n\n ```"
 					},
-					"response": [
-						{
-							"name": "Pruductos (GET Por ID)",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{dominio}}/api/productos/1",
-									"host": [
-										"{{dominio}}"
-									],
-									"path": [
-										"api",
-										"productos",
-										"1"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 23 Aug 2024 12:40:03 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id_producto\": 1,\n    \"producto\": \"teclado inalambrico\",\n    \"precio\": 35030.3\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "productos",
@@ -773,7 +667,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenSimple}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n        \"producto\": \"{{$randomProductName}}\",\n        \"precio\": {{$randomPrice}}\n    }",
@@ -882,7 +782,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenSimple}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n        \"id_producto\": 1,\n        \"producto\": \"teclado inalambrico\",\n        \"precio\": 35030.3\n    }",
@@ -993,7 +899,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenSimple}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -1100,7 +1012,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenSimple}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{dominio}}/api/ordenes-compra",
 							"host": [
@@ -1171,270 +1089,6 @@
 							"body": "[\n    {\n        \"id_orden\": 1,\n        \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\n        \"cliente\": {\n            \"id_cliente\": 3,\n            \"apellidoNombre\": \"Kristopher Morar\",\n            \"dni\": \"000\",\n            \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n            \"correoElectronico\": \"Johathan_Satterfield51@gmail.com\",\n            \"contrasena\": \"p4jdvgcMXb_HKGN\"\n        },\n        \"importe\": 1500.5,\n        \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\n        \"horaEntrega\": \"10:30 AM\"\n    },\n    {\n        \"id_orden\": 2,\n        \"fecha\": \"2024-08-15T03:00:00.000+00:00\",\n        \"cliente\": {\n            \"id_cliente\": 2,\n            \"apellidoNombre\": \"Jasmine Huel\",\n            \"dni\": \"000\",\n            \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n            \"correoElectronico\": \"Rosendo.Metz@gmail.com\",\n            \"contrasena\": \"CtV7W8Chl45wseb\"\n        },\n        \"importe\": 2500.75,\n        \"domicilioEntrega\": \"Avenida Siempre Viva 742, Córdoba\",\n        \"horaEntrega\": \"12:00 PM\"\n    },\n    {\n        \"id_orden\": 3,\n        \"fecha\": \"2024-08-16T03:00:00.000+00:00\",\n        \"cliente\": {\n            \"id_cliente\": 3,\n            \"apellidoNombre\": \"Kristopher Morar\",\n            \"dni\": \"000\",\n            \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n            \"correoElectronico\": \"Johathan_Satterfield51@gmail.com\",\n            \"contrasena\": \"p4jdvgcMXb_HKGN\"\n        },\n        \"importe\": 3200.2,\n        \"domicilioEntrega\": \"Calle Real 456, Mendoza\",\n        \"horaEntrega\": \"02:30 PM\"\n    }\n]"
 						}
 					]
-				},
-				{
-					"name": "OrdenCompra",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n        \"id_orden\": 14,\r\n        \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\r\n        \"cliente\": {\r\n            \"id_cliente\": 6,\r\n            \"apellidoNombre\": \"Kristopher Morar\",\r\n            \"dni\": \"000\",\r\n            \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\r\n            \"correoElectronico\": \"Johathan_Satterfield51@gmail.com\",\r\n            \"contrasena\": \"p4jdvgcMXb_HKGN\"\r\n        },\r\n        \"importe\": 1500.5,\r\n        \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\r\n        \"horaEntrega\": \"10:30 AM\"\r\n    },",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{dominio}}/api/ordenes-compra",
-							"host": [
-								"{{dominio}}"
-							],
-							"path": [
-								"api",
-								"ordenes-compra"
-							]
-						},
-						"description": "### Create New Order\n\nThis endpoint allows you to create a new order for a client.\n\n#### Request Body\n\n- `id_orden` (integer) - The ID of the order.\n    \n- `fecha` (string) - The date and time of the order.\n    \n- `cliente` (object) - The client details including ID, name, date of birth, email, and password.\n    \n    - `id_cliente` (integer) - The ID of the client.\n        \n    - `apellidoNombre` (string) - The full name of the client.\n        \n    - `dni` (string) - The client's identification number.\n        \n    - `fechaNacimiento` (string) - The client's date of birth.\n        \n    - `correoElectronico` (string) - The client's email address.\n        \n    - `contrasena` (string) - The client's password.\n        \n- `importe` (number) - The order amount.\n    \n- `domicilioEntrega` (string) - The delivery address.\n    \n- `horaEntrega` (string) - The delivery time.\n    \n\n#### Response\n\nThe response will be in the following JSON schema:\n\n``` json\n{\n  \"id_orden\": \"integer\",\n  \"fecha\": \"string\",\n  \"cliente\": {\n    \"id_cliente\": \"integer\",\n    \"apellidoNombre\": \"string\",\n    \"dni\": \"string\",\n    \"fechaNacimiento\": \"string\",\n    \"correoElectronico\": \"string\",\n    \"contrasena\": \"string\"\n  },\n  \"importe\": \"number\",\n  \"domicilioEntrega\": \"string\",\n  \"horaEntrega\": \"string\"\n}\n\n ```"
-					},
-					"response": [
-						{
-							"name": "OrdenCompra",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n        \"id_orden\": 14,\r\n        \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\r\n        \"cliente\": {\r\n            \"id_cliente\": 6,\r\n            \"apellidoNombre\": \"Kristopher Morar\",\r\n            \"dni\": \"000\",\r\n            \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\r\n            \"correoElectronico\": \"Johathan_Satterfield51@gmail.com\",\r\n            \"contrasena\": \"p4jdvgcMXb_HKGN\"\r\n        },\r\n        \"importe\": 1500.5,\r\n        \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\r\n        \"horaEntrega\": \"10:30 AM\"\r\n    },",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{dominio}}/api/ordenes-compra",
-									"host": [
-										"{{dominio}}"
-									],
-									"path": [
-										"api",
-										"ordenes-compra"
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 15 Aug 2024 11:28:12 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id_orden\": 14,\n    \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\n    \"cliente\": {\n        \"id_cliente\": 6,\n        \"apellidoNombre\": \"Norman Jacobi III\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Jewell7@yahoo.com\",\n        \"contrasena\": \"qC6J6Qxg0PND4pC\"\n    },\n    \"importe\": 1500.5,\n    \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\n    \"horaEntrega\": \"10:30 AM\"\n}"
-						}
-					]
-				},
-				{
-					"name": "OrdenCompra",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n        \"id_orden\": 15,\r\n        \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\r\n        \"cliente\": {\r\n            \"id_cliente\": 6,\r\n            \"apellidoNombre\": \"Kristopher Morar\",\r\n            \"dni\": \"000\",\r\n            \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\r\n            \"correoElectronico\": \"Johathan_Satterfield51@gmail.com\",\r\n            \"contrasena\": \"p4jdvgcMXb_HKGN\"\r\n        },\r\n        \"importe\": 800.5,\r\n        \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\r\n        \"horaEntrega\": \"10:30 AM\"\r\n    },",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{dominio}}/api/ordenes-compra/1",
-							"host": [
-								"{{dominio}}"
-							],
-							"path": [
-								"api",
-								"ordenes-compra",
-								"1"
-							]
-						},
-						"description": "This endpoint allows you to update an existing purchase order by sending an HTTP PUT request to the specified URL. The request should include the updated order details in the request body.\n\n### Request Body\n\n- id_orden: The ID of the order to be updated (integer)\n    \n- fecha: The updated date of the order (string, format: \"YYYY-MM-DDTHH:MM:SS.MMMZ\")\n    \n- cliente: An object containing the details of the customer\n    \n    - id_cliente: The ID of the customer (integer)\n        \n    - apellidoNombre: The updated name of the customer (string)\n        \n    - dni: The updated identification number of the customer (string)\n        \n    - fechaNacimiento: The updated date of birth of the customer (string, format: \"YYYY-MM-DDTHH:MM:SS.MMMZ\")\n        \n    - correoElectronico: The updated email address of the customer (string)\n        \n    - contrasena: The updated password of the customer (string)\n        \n- importe: The updated total amount of the order (number)\n    \n- domicilioEntrega: The updated delivery address (string)\n    \n- horaEntrega: The updated delivery time (string)\n    \n\n### Response\n\nThe response will be in the form of a JSON schema, with the following structure:  \n{  \n\"id_orden\": 0,  \n\"fecha\": \"\",  \n\"cliente\": {  \n\"id_cliente\": 0,  \n\"apellidoNombre\": \"\",  \n\"dni\": \"\",  \n\"fechaNacimiento\": \"\",  \n\"correoElectronico\": \"\",  \n\"contrasena\": \"\"  \n},  \n\"importe\": 0,  \n\"domicilioEntrega\": \"\",  \n\"horaEntrega\": \"\"  \n}  \nThe response will contain the updated details of the purchase order, with the corresponding data types as mentioned above."
-					},
-					"response": [
-						{
-							"name": "OrdenCompra",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n        \"id_orden\": 15,\r\n        \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\r\n        \"cliente\": {\r\n            \"id_cliente\": 6,\r\n            \"apellidoNombre\": \"Kristopher Morar\",\r\n            \"dni\": \"000\",\r\n            \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\r\n            \"correoElectronico\": \"Johathan_Satterfield51@gmail.com\",\r\n            \"contrasena\": \"p4jdvgcMXb_HKGN\"\r\n        },\r\n        \"importe\": 800.5,\r\n        \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\r\n        \"horaEntrega\": \"10:30 AM\"\r\n    },",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{dominio}}/api/ordenes-compra/1",
-									"host": [
-										"{{dominio}}"
-									],
-									"path": [
-										"api",
-										"ordenes-compra",
-										"1"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 15 Aug 2024 11:29:57 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id_orden\": 1,\n    \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\n    \"cliente\": {\n        \"id_cliente\": 6,\n        \"apellidoNombre\": \"Norman Jacobi III\",\n        \"dni\": \"000\",\n        \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n        \"correoElectronico\": \"Jewell7@yahoo.com\",\n        \"contrasena\": \"qC6J6Qxg0PND4pC\"\n    },\n    \"importe\": 800.5,\n    \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\n    \"horaEntrega\": \"10:30 AM\"\n}"
-						}
-					]
-				},
-				{
-					"name": "OrdenCompra",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{dominio}}/api/ordenes-compra/6",
-							"host": [
-								"{{dominio}}"
-							],
-							"path": [
-								"api",
-								"ordenes-compra",
-								"6"
-							]
-						},
-						"description": "This endpoint sends an HTTP DELETE request to the specified URL to delete the purchase order with the ID 6.\n\n### Response\n\nThe response of this request is a JSON schema representing the structure of the response data."
-					},
-					"response": [
-						{
-							"name": "OrdenCompra",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{dominio}}/api/ordenes-compra/6",
-									"host": [
-										"{{dominio}}"
-									],
-									"path": [
-										"api",
-										"ordenes-compra",
-										"6"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Content-Length",
-									"value": "0"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 15 Aug 2024 11:30:52 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": null
-						}
-					]
 				}
 			]
 		},
@@ -1445,7 +1099,13 @@
 					"name": "DetalleCompra",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenSimple}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{dominio}}/api/detalles-compra",
 							"host": [
@@ -1516,15 +1176,26 @@
 							"body": "[\n    {\n        \"id_detalle\": 1,\n        \"orden\": {\n            \"id_orden\": 1,\n            \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\n            \"cliente\": {\n                \"id_cliente\": 6,\n                \"apellidoNombre\": \"Norman Jacobi III\",\n                \"dni\": \"000\",\n                \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n                \"correoElectronico\": \"Jewell7@yahoo.com\",\n                \"contrasena\": \"qC6J6Qxg0PND4pC\"\n            },\n            \"importe\": 800.5,\n            \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\n            \"horaEntrega\": \"10:30 AM\"\n        },\n        \"producto\": {\n            \"id_producto\": 2,\n            \"producto\": \"Incredible Frozen Bacon\",\n            \"precio\": 158.19\n        },\n        \"precio\": 100,\n        \"cantidadPedida\": 3,\n        \"importe\": 300\n    },\n    {\n        \"id_detalle\": 2,\n        \"orden\": {\n            \"id_orden\": 2,\n            \"fecha\": \"2024-08-15T03:00:00.000+00:00\",\n            \"cliente\": {\n                \"id_cliente\": 2,\n                \"apellidoNombre\": \"Jasmine Huel\",\n                \"dni\": \"000\",\n                \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n                \"correoElectronico\": \"Rosendo.Metz@gmail.com\",\n                \"contrasena\": \"CtV7W8Chl45wseb\"\n            },\n            \"importe\": 2500.75,\n            \"domicilioEntrega\": \"Avenida Siempre Viva 742, Córdoba\",\n            \"horaEntrega\": \"12:00 PM\"\n        },\n        \"producto\": {\n            \"id_producto\": 3,\n            \"producto\": \"Fantastic Wooden Cheese\",\n            \"precio\": 916.4\n        },\n        \"precio\": 50,\n        \"cantidadPedida\": 5,\n        \"importe\": 250\n    },\n    {\n        \"id_detalle\": 3,\n        \"orden\": {\n            \"id_orden\": 3,\n            \"fecha\": \"2024-08-16T03:00:00.000+00:00\",\n            \"cliente\": {\n                \"id_cliente\": 3,\n                \"apellidoNombre\": \"Kristopher Morar\",\n                \"dni\": \"000\",\n                \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n                \"correoElectronico\": \"Johathan_Satterfield51@gmail.com\",\n                \"contrasena\": \"p4jdvgcMXb_HKGN\"\n            },\n            \"importe\": 3200.2,\n            \"domicilioEntrega\": \"Calle Real 456, Mendoza\",\n            \"horaEntrega\": \"02:30 PM\"\n        },\n        \"producto\": {\n            \"id_producto\": 1,\n            \"producto\": \"teclado inalambrico\",\n            \"precio\": 35030.3\n        },\n        \"precio\": 75,\n        \"cantidadPedida\": 2,\n        \"importe\": 150\n    },\n    {\n        \"id_detalle\": 4,\n        \"orden\": {\n            \"id_orden\": 1,\n            \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\n            \"cliente\": {\n                \"id_cliente\": 6,\n                \"apellidoNombre\": \"Norman Jacobi III\",\n                \"dni\": \"000\",\n                \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n                \"correoElectronico\": \"Jewell7@yahoo.com\",\n                \"contrasena\": \"qC6J6Qxg0PND4pC\"\n            },\n            \"importe\": 800.5,\n            \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\n            \"horaEntrega\": \"10:30 AM\"\n        },\n        \"producto\": {\n            \"id_producto\": 3,\n            \"producto\": \"Fantastic Wooden Cheese\",\n            \"precio\": 916.4\n        },\n        \"precio\": 100,\n        \"cantidadPedida\": 3,\n        \"importe\": 300\n    }\n]"
 						}
 					]
-				},
+				}
+			]
+		},
+		{
+			"name": "API Login",
+			"item": [
 				{
-					"name": "DetalleCompra",
+					"name": "User",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SimpleToken 3438a74c821a8d3fd0505a24ef4f19279abeb0f48cd367db41599e8581b3e45d",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n        \"id_detalle\": 1,\r\n        \"orden\": {\r\n            \"id_orden\": 1,\r\n            \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\r\n            \"cliente\": {\r\n                \"id_cliente\": 6,\r\n                \"apellidoNombre\": \"Norman Jacobi III\",\r\n                \"dni\": \"000\",\r\n                \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\r\n                \"correoElectronico\": \"Jewell7@yahoo.com\",\r\n                \"contrasena\": \"qC6J6Qxg0PND4pC\"\r\n            },\r\n            \"importe\": 800.5,\r\n            \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\r\n            \"horaEntrega\": \"10:30 AM\"\r\n        },\r\n        \"producto\": {\r\n            \"id_producto\": 2,\r\n            \"producto\": \"Incredible Frozen Bacon\",\r\n            \"precio\": 158.19\r\n        },\r\n        \"precio\": 100.0,\r\n        \"cantidadPedida\": 3,\r\n        \"importe\": 300.0\r\n    },\r\n    {\r\n        \"id_detalle\": 2,\r\n        \"orden\": {\r\n            \"id_orden\": 2,\r\n            \"fecha\": \"2024-08-15T03:00:00.000+00:00\",\r\n            \"cliente\": {\r\n                \"id_cliente\": 2,\r\n                \"apellidoNombre\": \"Jasmine Huel\",\r\n                \"dni\": \"000\",\r\n                \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\r\n                \"correoElectronico\": \"Rosendo.Metz@gmail.com\",\r\n                \"contrasena\": \"CtV7W8Chl45wseb\"\r\n            },\r\n            \"importe\": 2500.75,\r\n            \"domicilioEntrega\": \"Avenida Siempre Viva 742, Córdoba\",\r\n            \"horaEntrega\": \"12:00 PM\"\r\n        },\r\n        \"producto\": {\r\n            \"id_producto\": 3,\r\n            \"producto\": \"Fantastic Wooden Cheese\",\r\n            \"precio\": 916.4\r\n        },\r\n        \"precio\": 50.0,\r\n        \"cantidadPedida\": 5,\r\n        \"importe\": 250.0\r\n    },",
+							"raw": "{\r\n    \"username\": \"jean\",\r\n    \"password\": \"12345\",\r\n    \"token\": \"3438a74c821a8d3fd0505a24ef4f19279abeb0f48cd367db41599e8581b3e45d\",\r\n    \"id\": 3,\r\n    \"roll\": \"ROLE_ADMIN\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1532,26 +1203,34 @@
 							}
 						},
 						"url": {
-							"raw": "{{dominio}}/api/detalles-compra",
+							"raw": "http://localhost:8080/api/token/user",
+							"protocol": "http",
 							"host": [
-								"{{dominio}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
 								"api",
-								"detalles-compra"
+								"token",
+								"user"
 							]
-						},
-						"description": "### Request Body\n\n- `id_detalle` (number): The ID of the detail.\n    \n- `orden` (object): An object containing order details including order ID, date, customer details, total amount, delivery address, and delivery time.\n    \n    - `id_orden` (number): The ID of the order.\n        \n    - `fecha` (string): The date of the order.\n        \n    - `cliente` (object): An object containing customer details including customer ID, name, ID number, date of birth, email, and password.\n        \n        - `id_cliente` (number): The ID of the customer.\n            \n        - `apellidoNombre` (string): The name of the customer.\n            \n        - `dni` (string): The ID number of the customer.\n            \n        - `fechaNacimiento` (string): The date of birth of the customer.\n            \n        - `correoElectronico` (string): The email of the customer.\n            \n        - `contrasena` (string): The password of the customer.\n            \n    - `importe` (number): The total amount of the order.\n        \n    - `domicilioEntrega` (string): The delivery address.\n        \n    - `horaEntrega` (string): The delivery time.\n        \n- `producto` (object): An object containing product details including product ID, name, and price.\n    \n    - `id_producto` (number): The ID of the product.\n        \n    - `producto` (string): The name of the product.\n        \n    - `precio` (number): The price of the product.\n        \n- `precio` (number): The price of the purchase.\n    \n- `cantidadPedida` (number): The quantity of the product ordered.\n    \n- `importe` (number): The total amount for the purchase.\n    \n\n### Response\n\nThe response for this request is a JSON object with the following schema:\n\n``` json\n{\n  \"id_detalle\": 0,\n  \"orden\": {\n    \"id_orden\": 0,\n    \"fecha\": \"\",\n    \"cliente\": {\n      \"id_cliente\": 0,\n      \"apellidoNombre\": \"\",\n      \"dni\": \"\",\n      \"fechaNacimiento\": \"\",\n      \"correoElectronico\": \"\",\n      \"contrasena\": \"\"\n    },\n    \"importe\": 0,\n    \"domicilioEntrega\": \"\",\n    \"horaEntrega\": \"\"\n  },\n  \"producto\": {\n    \"id_producto\": 0,\n    \"producto\": \"\",\n    \"precio\": 0\n  },\n  \"precio\": 0,\n  \"cantidadPedida\": 0,\n  \"importe\": 0\n}\n\n ```\n\nThis JSON schema represents the structure of the response object with all properties as type `number` or `string`."
+						}
 					},
 					"response": [
 						{
-							"name": "DetalleCompra",
+							"name": "User",
 							"originalRequest": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SimpleToken mySecretKey",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
-									"raw": " {\r\n        \"id_detalle\": 1,\r\n        \"orden\": {\r\n            \"id_orden\": 1,\r\n            \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\r\n            \"cliente\": {\r\n                \"id_cliente\": 6,\r\n                \"apellidoNombre\": \"Norman Jacobi III\",\r\n                \"dni\": \"000\",\r\n                \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\r\n                \"correoElectronico\": \"Jewell7@yahoo.com\",\r\n                \"contrasena\": \"qC6J6Qxg0PND4pC\"\r\n            },\r\n            \"importe\": 800.5,\r\n            \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\r\n            \"horaEntrega\": \"10:30 AM\"\r\n        },\r\n        \"producto\": {\r\n            \"id_producto\": 2,\r\n            \"producto\": \"Incredible Frozen Bacon\",\r\n            \"precio\": 158.19\r\n        },\r\n        \"precio\": 100.0,\r\n        \"cantidadPedida\": 3,\r\n        \"importe\": 300.0\r\n    },\r\n    {\r\n        \"id_detalle\": 2,\r\n        \"orden\": {\r\n            \"id_orden\": 2,\r\n            \"fecha\": \"2024-08-15T03:00:00.000+00:00\",\r\n            \"cliente\": {\r\n                \"id_cliente\": 2,\r\n                \"apellidoNombre\": \"Jasmine Huel\",\r\n                \"dni\": \"000\",\r\n                \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\r\n                \"correoElectronico\": \"Rosendo.Metz@gmail.com\",\r\n                \"contrasena\": \"CtV7W8Chl45wseb\"\r\n            },\r\n            \"importe\": 2500.75,\r\n            \"domicilioEntrega\": \"Avenida Siempre Viva 742, Córdoba\",\r\n            \"horaEntrega\": \"12:00 PM\"\r\n        },\r\n        \"producto\": {\r\n            \"id_producto\": 3,\r\n            \"producto\": \"Fantastic Wooden Cheese\",\r\n            \"precio\": 916.4\r\n        },\r\n        \"precio\": 50.0,\r\n        \"cantidadPedida\": 5,\r\n        \"importe\": 250.0\r\n    },",
+									"raw": "{\r\n    \"username\": \"jean\",\r\n    \"password\": \"12345\",\r\n    \"token\": \"jean\",\r\n    \"id\": 3,\r\n    \"roll\": \"ROLE_ADMIN\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1559,109 +1238,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{dominio}}/api/detalles-compra",
+									"raw": "http://localhost:8080/api/token/user",
+									"protocol": "http",
 									"host": [
-										"{{dominio}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"api",
-										"detalles-compra"
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 15 Aug 2024 11:34:29 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id_detalle\": 1,\n    \"orden\": {\n        \"id_orden\": 1,\n        \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\n        \"cliente\": {\n            \"id_cliente\": 6,\n            \"apellidoNombre\": \"Norman Jacobi III\",\n            \"dni\": \"000\",\n            \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n            \"correoElectronico\": \"Jewell7@yahoo.com\",\n            \"contrasena\": \"qC6J6Qxg0PND4pC\"\n        },\n        \"importe\": 800.5,\n        \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\n        \"horaEntrega\": \"10:30 AM\"\n    },\n    \"producto\": {\n        \"id_producto\": 2,\n        \"producto\": \"Incredible Frozen Bacon\",\n        \"precio\": 158.19\n    },\n    \"precio\": 100,\n    \"cantidadPedida\": 3,\n    \"importe\": 300\n}"
-						}
-					]
-				},
-				{
-					"name": "DetalleCompra",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": " {\r\n        \"id_detalle\": 1,\r\n        \"orden\": {\r\n            \"id_orden\": 1,\r\n            \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\r\n            \"cliente\": {\r\n                \"id_cliente\": 6,\r\n                \"apellidoNombre\": \"Norman Jacobi III\",\r\n                \"dni\": \"000\",\r\n                \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\r\n                \"correoElectronico\": \"Jewell7@yahoo.com\",\r\n                \"contrasena\": \"qC6J6Qxg0PND4pC\"\r\n            },\r\n            \"importe\": 800.5,\r\n            \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\r\n            \"horaEntrega\": \"10:30 AM\"\r\n        },\r\n        \"producto\": {\r\n            \"id_producto\": 2,\r\n            \"producto\": \"Incredible Frozen Bacon\",\r\n            \"precio\": 158.19\r\n        },\r\n        \"precio\": 100.0,\r\n        \"cantidadPedida\": 3,\r\n        \"importe\": 300.0\r\n    },\r\n    {\r\n        \"id_detalle\": 2,\r\n        \"orden\": {\r\n            \"id_orden\": 2,\r\n            \"fecha\": \"2024-08-15T03:00:00.000+00:00\",\r\n            \"cliente\": {\r\n                \"id_cliente\": 2,\r\n                \"apellidoNombre\": \"Jasmine Huel\",\r\n                \"dni\": \"000\",\r\n                \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\r\n                \"correoElectronico\": \"Rosendo.Metz@gmail.com\",\r\n                \"contrasena\": \"CtV7W8Chl45wseb\"\r\n            },\r\n            \"importe\": 2500.75,\r\n            \"domicilioEntrega\": \"Avenida Siempre Viva 742, Córdoba\",\r\n            \"horaEntrega\": \"12:00 PM\"\r\n        },\r\n        \"producto\": {\r\n            \"id_producto\": 3,\r\n            \"producto\": \"Fantastic Wooden Cheese\",\r\n            \"precio\": 916.4\r\n        },\r\n        \"precio\": 300.0,\r\n        \"cantidadPedida\": 5,\r\n        \"importe\": 250.0\r\n    },",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{dominio}}/api/detalles-compra/1",
-							"host": [
-								"{{dominio}}"
-							],
-							"path": [
-								"api",
-								"detalles-compra",
-								"1"
-							]
-						},
-						"description": "This endpoint allows you to update the details of a specific purchase identified by the ID \"1\". The request should be sent as an HTTP PUT to {{dominio}}/api/detalles-compra/1. The request body should include the details of the purchase, such as the ID of the detail, order, product, price, quantity ordered, and total amount. The request body should be in JSON format.\n\n### Request Body\n\n- `id_detalle` (number): The ID of the detail.\n    \n- `orden` (object): Details of the order including order ID, date, customer details, total amount, delivery address, and delivery time.\n    \n    - `id_orden` (number): The ID of the order.\n        \n    - `fecha` (string): The date of the order.\n        \n    - `cliente` (object): Customer details including customer ID, name, ID number, date of birth, email, and password.\n        \n        - `id_cliente` (number): The ID of the customer.\n            \n        - `apellidoNombre` (string): The name of the customer.\n            \n        - `dni` (string): The ID number of the customer.\n            \n        - `fechaNacimiento` (string): The date of birth of the customer.\n            \n        - `correoElectronico` (string): The email of the customer.\n            \n        - `contrasena` (string): The password of the customer.\n            \n    - `importe` (number): The total amount of the order.\n        \n    - `domicilioEntrega` (string): The delivery address.\n        \n    - `horaEntrega` (string): The delivery time.\n        \n- `producto` (object): Details of the product including product ID, name, and price.\n    \n    - `id_producto` (number): The ID of the product.\n        \n    - `producto` (string): The name of the product.\n        \n    - `precio` (number): The price of the product.\n        \n- `precio` (number): The price of the purchase.\n    \n- `cantidadPedida` (number): The quantity ordered.\n    \n- `importe` (number): The total amount.\n    \n\n### Response\n\nThe response will include the updated details of the purchase. The response body will be in JSON format and will include the same fields as the request body, with updated values based on the changes made.\n\nExample Response:\n\n``` json\n{\n  \"id_detalle\": 0,\n  \"orden\": {\n    \"id_orden\": 0,\n    \"fecha\": \"\",\n    \"cliente\": {\n      \"id_cliente\": 0,\n      \"apellidoNombre\": \"\",\n      \"dni\": \"\",\n      \"fechaNacimiento\": \"\",\n      \"correoElectronico\": \"\",\n      \"contrasena\": \"\"\n    },\n    \"importe\": 0,\n    \"domicilioEntrega\": \"\",\n    \"horaEntrega\": \"\"\n  },\n  \"producto\": {\n    \"id_producto\": 0,\n    \"producto\": \"\",\n    \"precio\": 0\n  },\n  \"precio\": 0,\n  \"cantidadPedida\": 0,\n  \"importe\": 0\n}\n\n ```"
-					},
-					"response": [
-						{
-							"name": "DetalleCompra",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": " {\r\n        \"id_detalle\": 1,\r\n        \"orden\": {\r\n            \"id_orden\": 1,\r\n            \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\r\n            \"cliente\": {\r\n                \"id_cliente\": 6,\r\n                \"apellidoNombre\": \"Norman Jacobi III\",\r\n                \"dni\": \"000\",\r\n                \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\r\n                \"correoElectronico\": \"Jewell7@yahoo.com\",\r\n                \"contrasena\": \"qC6J6Qxg0PND4pC\"\r\n            },\r\n            \"importe\": 800.5,\r\n            \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\r\n            \"horaEntrega\": \"10:30 AM\"\r\n        },\r\n        \"producto\": {\r\n            \"id_producto\": 2,\r\n            \"producto\": \"Incredible Frozen Bacon\",\r\n            \"precio\": 158.19\r\n        },\r\n        \"precio\": 100.0,\r\n        \"cantidadPedida\": 3,\r\n        \"importe\": 300.0\r\n    },\r\n    {\r\n        \"id_detalle\": 2,\r\n        \"orden\": {\r\n            \"id_orden\": 2,\r\n            \"fecha\": \"2024-08-15T03:00:00.000+00:00\",\r\n            \"cliente\": {\r\n                \"id_cliente\": 2,\r\n                \"apellidoNombre\": \"Jasmine Huel\",\r\n                \"dni\": \"000\",\r\n                \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\r\n                \"correoElectronico\": \"Rosendo.Metz@gmail.com\",\r\n                \"contrasena\": \"CtV7W8Chl45wseb\"\r\n            },\r\n            \"importe\": 2500.75,\r\n            \"domicilioEntrega\": \"Avenida Siempre Viva 742, Córdoba\",\r\n            \"horaEntrega\": \"12:00 PM\"\r\n        },\r\n        \"producto\": {\r\n            \"id_producto\": 3,\r\n            \"producto\": \"Fantastic Wooden Cheese\",\r\n            \"precio\": 916.4\r\n        },\r\n        \"precio\": 300.0,\r\n        \"cantidadPedida\": 5,\r\n        \"importe\": 250.0\r\n    },",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{dominio}}/api/detalles-compra/1",
-									"host": [
-										"{{dominio}}"
-									],
-									"path": [
-										"api",
-										"detalles-compra",
-										"1"
+										"token",
+										"user"
 									]
 								}
 							},
@@ -1682,6 +1268,30 @@
 									"value": "Access-Control-Request-Headers"
 								},
 								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
 									"key": "Content-Type",
 									"value": "application/json"
 								},
@@ -1691,7 +1301,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 15 Aug 2024 11:35:54 GMT"
+									"value": "Mon, 11 Nov 2024 02:32:44 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -1703,79 +1313,48 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id_detalle\": 1,\n    \"orden\": {\n        \"id_orden\": 1,\n        \"fecha\": \"2024-08-14T03:00:00.000+00:00\",\n        \"cliente\": {\n            \"id_cliente\": 6,\n            \"apellidoNombre\": \"Norman Jacobi III\",\n            \"dni\": \"000\",\n            \"fechaNacimiento\": \"1990-01-01T00:00:00.000+00:00\",\n            \"correoElectronico\": \"Jewell7@yahoo.com\",\n            \"contrasena\": \"qC6J6Qxg0PND4pC\"\n        },\n        \"importe\": 800.5,\n        \"domicilioEntrega\": \"Calle Falsa 123, Buenos Aires\",\n        \"horaEntrega\": \"10:30 AM\"\n    },\n    \"producto\": {\n        \"id_producto\": 2,\n        \"producto\": \"Incredible Frozen Bacon\",\n        \"precio\": 158.19\n    },\n    \"precio\": 100,\n    \"cantidadPedida\": 3,\n    \"importe\": 300\n}"
+							"body": "{\n    \"username\": \"jean\",\n    \"password\": \"12345\",\n    \"token\": \"jean\",\n    \"id\": 3,\n    \"roll\": \"ROLE_ADMIN\"\n}"
 						}
 					]
 				},
 				{
-					"name": "DetalleCompra",
+					"name": "Crear JWT",
 					"request": {
-						"method": "DELETE",
-						"header": [],
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenSimple}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"jean\",\r\n    \"password\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{dominio}}/api/detalles-compra/3",
+							"raw": "http://localhost:8080/api/login",
+							"protocol": "http",
 							"host": [
-								"{{dominio}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
 								"api",
-								"detalles-compra",
-								"3"
+								"login"
 							]
-						},
-						"description": "This endpoint sends an HTTP DELETE request to delete the purchase details with the ID of 3.\n\n### Request Body\n\nThis request does not require a request body.\n\n### Response\n\n- Status: 204\n    \n- Content-Type: text/xml\n    \n- Response Body: null"
-					},
-					"response": [
-						{
-							"name": "DetalleCompra",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{dominio}}/api/detalles-compra/3",
-									"host": [
-										"{{dominio}}"
-									],
-									"path": [
-										"api",
-										"detalles-compra",
-										"3"
-									]
-								}
-							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 10 Sep 2024 02:54:53 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": null
 						}
-					]
+					},
+					"response": []
 				}
 			]
 		}
