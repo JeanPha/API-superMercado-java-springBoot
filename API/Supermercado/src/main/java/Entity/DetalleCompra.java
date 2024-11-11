@@ -1,4 +1,4 @@
-package com.Jean.Supermercado.models;
+package Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
-package com.Jean.Supermercado.services;
+package com.Jean.Supermercado.service;
 
-import com.Jean.Supermercado.models.Producto;
-import com.Jean.Supermercado.repositories.ProductoRepository;
+import Entity.Producto;
+import com.Jean.Supermercado.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

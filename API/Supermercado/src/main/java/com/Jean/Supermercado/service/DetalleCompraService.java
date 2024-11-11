@@ -1,11 +1,11 @@
-package com.Jean.Supermercado.services;
+package com.Jean.Supermercado.service;
 
-import com.Jean.Supermercado.models.DetalleCompra;
-import com.Jean.Supermercado.models.Producto;
-import com.Jean.Supermercado.models.OrdenCompra;
-import com.Jean.Supermercado.repositories.DetalleCompraRepository;
-import com.Jean.Supermercado.repositories.ProductoRepository;
-import com.Jean.Supermercado.repositories.OrdenCompraRepository;
+import Entity.DetalleCompra;
+import Entity.Producto;
+import Entity.OrdenCompra;
+import com.Jean.Supermercado.repository.DetalleCompraRepository;
+import com.Jean.Supermercado.repository.ProductoRepository;
+import com.Jean.Supermercado.repository.OrdenCompraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,7 @@
-package com.Jean.Supermercado.models;
+package Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,8 +33,5 @@ public class Cliente {
     @Column(name = "correo_electronico", nullable = false)
     private String correoElectronico;
 
-    @Column(nullable = false)
-    private String contrasena;
 
-
-    }
+}

@@ -1,10 +1,7 @@
-package com.Jean.Supermercado.controllers;
+package com.Jean.Supermercado.Controller;
 
-
-import com.Jean.Supermercado.models.Cliente;
-import com.Jean.Supermercado.models.Producto;
-import com.Jean.Supermercado.repositories.ClienteRepository;
-import com.Jean.Supermercado.repositories.ProductoRepository;
+import Entity.Producto;
+import com.Jean.Supermercado.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

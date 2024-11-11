@@ -1,6 +1,6 @@
-package com.Jean.Supermercado.repositories;
+package com.Jean.Supermercado.repository;
 
-import com.Jean.Supermercado.models.Cliente;
+import Entity.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

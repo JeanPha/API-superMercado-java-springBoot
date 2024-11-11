@@ -1,7 +1,7 @@
-package com.Jean.Supermercado.services;
+package com.Jean.Supermercado.service;
 
-import com.Jean.Supermercado.models.Cliente;
-import com.Jean.Supermercado.repositories.ClienteRepository;
+import Entity.Cliente;
+import com.Jean.Supermercado.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +39,7 @@ public class ClienteService {
             existingCliente.setDni(cliente.getDni());
             existingCliente.setFechaNacimiento(cliente.getFechaNacimiento());
             existingCliente.setCorreoElectronico(cliente.getCorreoElectronico());
-            existingCliente.setContrasena(cliente.getContrasena());
+            //existingCliente.setContrasena(cliente.getContrasena());
             // Guarda los cambios en la base de datos
             return clienteRepository.save(existingCliente);
         }

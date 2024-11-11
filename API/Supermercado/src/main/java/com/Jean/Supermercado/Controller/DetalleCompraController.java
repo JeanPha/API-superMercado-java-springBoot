@@ -1,7 +1,7 @@
-package com.Jean.Supermercado.controllers;
+package com.Jean.Supermercado.Controller;
 
-import com.Jean.Supermercado.models.DetalleCompra;
-import com.Jean.Supermercado.repositories.DetalleCompraRepository;
+import Entity.DetalleCompra;
+import com.Jean.Supermercado.repository.DetalleCompraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,3 +59,4 @@ public class DetalleCompraController {
         return ResponseEntity.ok(savedDetalleCompra);
     }
 }
+
