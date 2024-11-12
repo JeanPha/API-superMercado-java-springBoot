@@ -20,8 +20,13 @@ public class ClienteService {
     }
 
     // Método para obtener un cliente por su ID
-    public Cliente getClienteById(Long id) {  // Cambiado de int a Long
+    public Cliente getClienteById(Long id) {
         return clienteRepository.findById(id).orElse(null);
+    }
+
+    // Método para obtener un cliente por su nombre (sobrecargado)
+    public Cliente getClienteByNombre(String apellidoNombre) {
+        return clienteRepository.findByApellidoNombre(apellidoNombre).orElse(null);
     }
 
     // Método para crear un nuevo cliente
@@ -30,24 +35,20 @@ public class ClienteService {
     }
 
     // Método para actualizar un cliente existente
-    public Cliente updateCliente(Long id, Cliente cliente) {  // Cambiado de int a Long
-        // Busca el cliente existente por ID
+    public Cliente updateCliente(Long id, Cliente cliente) {
         Cliente existingCliente = clienteRepository.findById(id).orElse(null);
         if (existingCliente != null) {
-            // Actualiza los campos del cliente existente
             existingCliente.setApellidoNombre(cliente.getApellidoNombre());
             existingCliente.setDni(cliente.getDni());
             existingCliente.setFechaNacimiento(cliente.getFechaNacimiento());
             existingCliente.setCorreoElectronico(cliente.getCorreoElectronico());
-            //existingCliente.setContrasena(cliente.getContrasena());
-            // Guarda los cambios en la base de datos
             return clienteRepository.save(existingCliente);
         }
-        return null; // Devuelve null si el cliente no fue encontrado
+        return null;
     }
 
     // Método para eliminar un cliente por su ID
-    public void deleteCliente(Long id) {  // Cambiado de int a Long
+    public void deleteCliente(Long id) {
         clienteRepository.deleteById(id);
     }
 }

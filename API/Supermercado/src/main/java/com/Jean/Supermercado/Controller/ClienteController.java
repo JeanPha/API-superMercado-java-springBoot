@@ -1,14 +1,13 @@
 package com.Jean.Supermercado.Controller;
 
 import Entity.Cliente;
-import com.Jean.Supermercado.repository.ClienteRepository;
+import com.Jean.Supermercado.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -16,54 +15,49 @@ import java.util.Optional;
 public class ClienteController {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteService clienteService;
 
-    @CrossOrigin
     @GetMapping
     public List<Cliente> getAllClientes() {
-        return clienteRepository.findAll();
+        return clienteService.getAllClientes();
     }
 
-    @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) {
-        Optional<Cliente> cliente = clienteRepository.findById(id);
-        return cliente.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Cliente cliente = clienteService.getClienteById(id);
+        return cliente != null ? ResponseEntity.ok(cliente) : ResponseEntity.notFound().build();
     }
 
-    @CrossOrigin
+    // Endpoint para obtener un cliente por nombre
+    @GetMapping("/nombre/{apellidoNombre}")
+    public ResponseEntity<Cliente> getClienteByNombre(@PathVariable String apellidoNombre) {
+        Cliente cliente = clienteService.getClienteByNombre(apellidoNombre);
+        return cliente != null ? ResponseEntity.ok(cliente) : ResponseEntity.notFound().build();
+    }
+
     @PostMapping
     public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
         try {
-            Cliente savedCliente = clienteRepository.save(cliente);
+            Cliente savedCliente = clienteService.createCliente(cliente);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedCliente);
         } catch (Exception e) {
-            // Log para obtener más detalles
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-
-    @CrossOrigin
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
-        if (!clienteRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        clienteRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestBody Cliente updatedCliente) {
-        if (!clienteRepository.existsById(id)) {
+        Cliente savedCliente = clienteService.updateCliente(id, updatedCliente);
+        return savedCliente != null ? ResponseEntity.ok(savedCliente) : ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
+        if (clienteService.getClienteById(id) == null) {
             return ResponseEntity.notFound().build();
         }
-        updatedCliente.setId_cliente(id);
-        Cliente savedCliente = clienteRepository.save(updatedCliente);
-        return ResponseEntity.ok(savedCliente);
+        clienteService.deleteCliente(id);
+        return ResponseEntity.noContent().build();
     }
 }
